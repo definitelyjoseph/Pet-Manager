@@ -2,7 +2,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class AnimalStorage {
+public class PetStorage {
     private static final String FILE_NAME = "Pets.dat";
 
     public static void saveAnimals(List<Animal> pets) {
