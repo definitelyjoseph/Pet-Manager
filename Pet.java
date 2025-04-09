@@ -49,14 +49,7 @@ public class Pet {
         return age;
     }
 
-    public String getName(){
-    return name;
-    }
-
-    public String getBreed() { 
-        return breed;
- }
-
+  
     public boolean getAdoptionStat(){
         return adopted;
     }
