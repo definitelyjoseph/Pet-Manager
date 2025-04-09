@@ -44,7 +44,7 @@ public class SignUpPanel extends JPanel {
             String password = new String(passwordField.getPassword());
 
             Customer newCustomer = new Customer(name, gender, address, email, phone, birthYear, password, username);
-            customer.add(newCustomer);
+            customers.add(newCustomer);
             CustomerStorage.saveCustomers(customers); // Save the new customer to the file
 
             JOptionPane.showMessageDialog(null, "Sign-up successful. Please log in.");
