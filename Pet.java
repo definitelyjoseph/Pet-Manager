@@ -21,7 +21,8 @@ public class Pet {
         return breed;
     }
 
-    public String getSpecies(){
+    public String getSpecies(){ //This method returns the species of the pet based on the first letter of the aniD
+                                // aniD format: "D_12345" for Dog, "C_12345" for Cat, etc.
 
         switch (aniD.split("_")[0]) {
             case "D":
