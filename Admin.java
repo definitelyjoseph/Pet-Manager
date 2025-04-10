@@ -90,7 +90,7 @@ public class Admin  extends Date
                     System.out.println("Pet " + petID + " has been adopted by customer " + CustomerID);
                     return true;
             } else {
-                System.out.println("Customer " + CustomerID + "is not eligible to adopt")
+                System.out.println("Customer " + CustomerID + "is not eligible to adopt");
                 return false;
             }
         }
@@ -112,8 +112,3 @@ public class Admin  extends Date
 
 
 
-
-
-
-
-  

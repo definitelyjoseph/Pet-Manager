@@ -8,6 +8,7 @@ public class Customer implements Serializable {
     private String customerId, name, gender, address, email, phone, password, username;
     private int birthYear;
     private List<String> adoptedPets;
+    
 
     public Customer(String name, String gender, String address, String email, String phone, int birthYear, String password, String username) {
         this.customerId = generateCustomerId();

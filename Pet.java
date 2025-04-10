@@ -1,26 +1,29 @@
-public class Pets {
+public class Pet {
     private String aniD;
     private String name;
     private String breed;
     private int age;
-    private String gender; 
     private boolean adopted;
 
-    public Pets(String aniD, String name, String breed, int age, String gender) {
+    public Pet(String aniD, String name, String breed, int age) {
         this.aniD = aniD;
         this.name = name;
         this.breed = breed;
         this.age = age;
-        this.gender = gender;
         this.adopted = false; // Default value for adopted
     }
 
     public String getName(){
         return name;
     }
-
+ public void setName(String name){
+        this.name = name;
+    }
     public String getBreed(){
         return breed;
+    }
+    public void setBreed(String breed){
+        this.breed = breed;
     }
 
     public String getSpecies(){ //This method returns the species of the pet based on the first letter of the aniD
@@ -43,15 +46,22 @@ public class Pets {
         
 
     }
-
+pu
     public String getId(){
         return aniD;
     }
+    public void setId(String aniD){
+        this.aniD = aniD;
+    }
+    
+   
 
     public int getAge(){
         return age;
     }
-
+ public void setAge(int age){
+        this.age = age;
+    }
   
     public boolean getAdoptionStat(){
         return adopted;
@@ -63,8 +73,7 @@ public class Pets {
 
     public String toString() {
         return "Pet ID: " + aniD + ", Name: " + name + ", Breed: " + breed + ", Age: " + age + ", Adopted: " + adopted;
+ 
     }
-    public boolean isAvalibleForAdoption() {
-        return !adopted;
-    }
+
 }
