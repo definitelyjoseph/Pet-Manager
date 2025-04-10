@@ -3,13 +3,15 @@ public class Pets {
     private String name;
     private String breed;
     private int age;
+    private String gender; 
     private boolean adopted;
 
-    public Pets(String aniD, String name, String breed, int age) {
+    public Pets(String aniD, String name, String breed, int age, String gender) {
         this.aniD = aniD;
         this.name = name;
         this.breed = breed;
         this.age = age;
+        this.gender = gender;
         this.adopted = false; // Default value for adopted
     }
 
