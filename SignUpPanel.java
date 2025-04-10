@@ -3,9 +3,23 @@ import java.awt.*;
 import java.util.List;
 
 public class SignUpPanel extends JPanel {
-    public SignUpPanel(CardLayout layout, JPanel parent, List<Customer> customers) {
-        setLayout(new GridLayout(8, 2));
+    private CardLayout layout;
+    private JPanel parent;
+    private List<Customer> customers;
 
+    public SignUpPanel(CardLayout layout, JPanel parent, List<Customer> customers) {
+        this.layout = layout;
+        this.parent = parent;
+        this.customers = customers;
+
+        // Calls the method to display the form when the panel is created
+        showForm();
+    }
+
+    public void showForm() {
+        setLayout(new GridLayout(9, 2));
+
+        // Create fields
         JTextField nameField = new JTextField();
         JTextField genderField = new JTextField();
         JTextField addressField = new JTextField();
@@ -15,6 +29,7 @@ public class SignUpPanel extends JPanel {
         JTextField usernameField = new JTextField();
         JPasswordField passwordField = new JPasswordField();
 
+        // Add labels and fields to the panel
         add(new JLabel("Name:"));
         add(nameField);
         add(new JLabel("Gender:"));
@@ -32,8 +47,10 @@ public class SignUpPanel extends JPanel {
         add(new JLabel("Password:"));
         add(passwordField);
 
-        int option = JOptionPane.showConfirmDialog(null, this, "Sign Up", JOptionPane.OK_CANCEL_OPTION);
-        if (option == JOptionPane.OK_OPTION) {
+        // Add a sign-up button to submit the form
+        JButton signUpButton = new JButton("Sign Up");
+        add(signUpButton);
+        signUpButton.addActionListener(e -> {
             String name = nameField.getText();
             String gender = genderField.getText();
             String address = addressField.getText();
@@ -43,14 +60,17 @@ public class SignUpPanel extends JPanel {
             String username = usernameField.getText();
             String password = new String(passwordField.getPassword());
 
+            // Save new customer and navigate to the login screen
             Customer newCustomer = new Customer(name, gender, address, email, phone, birthYear, password, username);
             customers.add(newCustomer);
-            CustomerStorage.saveCustomers(customers); // Save the new customer to the file
-
+            CustomerStorage.saveCustomers(customers);
             JOptionPane.showMessageDialog(null, "Sign-up successful. Please log in.");
             layout.show(parent, "Login Screen");
-        } else {
-            layout.show(parent, "Main Menu");
-        }
+        });
+
+        // A back button to return to the main menu
+        JButton backButton = new JButton("Back to Main Menu");
+        add(backButton);
+        backButton.addActionListener(e -> layout.show(parent, "Main Menu"));
     }
 }
