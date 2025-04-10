@@ -1,11 +1,11 @@
-public class Pet {
+public class Pets {
     private String aniD;
     private String name;
     private String breed;
     private int age;
     private boolean adopted;
 
-    public Pet(String aniD, String name, String breed, int age) {
+    public Pets(String aniD, String name, String breed, int age) {
         this.aniD = aniD;
         this.name = name;
         this.breed = breed;
