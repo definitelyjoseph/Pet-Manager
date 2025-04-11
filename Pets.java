@@ -52,6 +52,10 @@ public class Pets {
         return age;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
   
     public boolean getAdoptionStat(){
         return adopted;
@@ -59,6 +63,26 @@ public class Pets {
 
     public void setAdoptionStat(boolean adopted) {
         this.adopted = adopted;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setBreed(String breed) {
+        this.breed = breed;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setId(String aniD) {
+        this.aniD = aniD;
     }
 
     public String toString() {
