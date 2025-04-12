@@ -1,4 +1,4 @@
-public class Pet {
+public class Pet implements Animal {
     private String aniD;
     private String name;
     private String breed;
@@ -46,7 +46,7 @@ public class Pet {
         
 
     }
-pu
+
     public String getId(){
         return aniD;
     }
