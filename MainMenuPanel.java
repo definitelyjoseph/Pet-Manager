@@ -13,7 +13,7 @@ public class MainMenuPanel extends JPanel {
 
         // Load and scale the logo image
         ImageIcon logoIcon = new ImageIcon("C:\\Users\\amoya\\Downloads\\New folder (2)\\ChatGPT Image Apr 12, 2025, 12_51_25 AM.png");
-        Image scaledImage = logoIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH); // Resize logo
+        Image scaledImage = logoIcon.getImage().getScaledInstance(500, 500, Image.SCALE_SMOOTH); // Resize logo
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
         
         // Create the logo label and add it to the top
@@ -22,7 +22,7 @@ public class MainMenuPanel extends JPanel {
 
         // Create the welcome text label
         welcomeLabel = new JLabel("Welcome to Pet Manager!", SwingConstants.CENTER);
-        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 30));
 
         // Panel to hold logo and welcome text
         JPanel topPanel = new JPanel();
@@ -62,7 +62,7 @@ public class MainMenuPanel extends JPanel {
 
     private void styleButton(JButton button) {
         button.setFocusPainted(false);
-        button.setFont(new Font("Arial", Font.PLAIN, 12));
+        button.setFont(new Font("Arial", Font.PLAIN, 30));
         button.setBackground(Color.LIGHT_GRAY);
         button.setForeground(Color.BLACK);
     }
