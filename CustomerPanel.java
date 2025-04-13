@@ -1,7 +1,7 @@
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class CustomerPanel extends JPanel {
     public CustomerPanel(CardLayout layout, JPanel parent, Customer customer, List<Animal> animals, List<AdoptionRequest> requests) {
@@ -15,7 +15,7 @@ public class CustomerPanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane(table);
 
         for (Animal pets : animals) {
-            model.addRow(new Object[]{Pet.getId(), Pet.getName(), Pet.getBreed(), Pet.getAge()});
+            model.addRow(new Object[]{pets.getId(), pets.getName(), pets.getBreed(), pets.getAge()});
         }
 
         JButton viewAnimalsButton = new JButton("View Animals");
@@ -39,7 +39,7 @@ public class CustomerPanel extends JPanel {
 
         requestAdoptionButton.addActionListener(e -> {
             String animalId = JOptionPane.showInputDialog("Enter Animal ID for Adoption:");
-            AdoptionRequest req = customer.requestAdoption(aniId);
+            AdoptionRequest req = customer.requestAdoption(animalId);
             if (req != null) {
                 requests.add(req);
                 AdoptionRequestStorage.saveRequests(requests);

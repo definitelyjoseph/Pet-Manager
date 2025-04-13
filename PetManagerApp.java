@@ -1,8 +1,7 @@
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-
 import java.awt.*;
 import java.util.List;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 
 
@@ -19,7 +18,7 @@ import java.util.List;
         private static JPanel mainPanel;
         private static CardLayout cardLayout;
     
-        private static List<Animal> pets = AnimalStorage.loadAnimals();
+        private static List<Pets> pets = PetStorage.loadAnimals();
         private static List<Customer> customers = CustomerStorage.loadCustomers();
         private static List<AdoptionRequest> requests = AdoptionRequestStorage.loadRequests();
     
@@ -37,7 +36,7 @@ import java.util.List;
             MainMenuPanel mainMenuPanel = new MainMenuPanel(cardLayout, mainPanel);
             SignUpPanel signUpPanel = new SignUpPanel(cardLayout, mainPanel, customers);
             LoginPanel loginPanel = new LoginPanel(cardLayout, mainPanel, customers);
-            CustomerPanel customerPanel = new CustomerPanel(cardLayout, mainPanel, null, animals, requests);
+            CustomerPanel customerPanel = new CustomerPanel(cardLayout, mainPanel, null, (List<Animal>)(List<?>)pets, requests);
 
             mainPanel.add(mainMenuPanel, "Main Menu");
             mainPanel.add(customerPanel, "Customer Dashboard");
@@ -71,7 +70,7 @@ import java.util.List;
     
         private void updateTable(DefaultTableModel model) {
             model.setRowCount(0);
-            for (Pets pets : animals) {
+            for (Pets pets : pets) {//changed this to see if it works
                 model.addRow(new Object[]{pets.getId(), pets.getName(), pets.getBreed(), pets.getAge()});
             }
         }
