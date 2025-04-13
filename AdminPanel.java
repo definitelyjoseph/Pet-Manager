@@ -62,14 +62,17 @@ public class AdminPanel extends JPanel {
         JButton filterAdoptedBtn = new JButton("Filter by Adopted");
         JButton filterBreedBtn = new JButton("Filter by Breed");
         JButton sortAgeBtn = new JButton("Sort by Age");
+        JButton sortIdBtn = new JButton("Sort by ID");
         JButton removeFiltersBtn = new JButton("Remove All Filters");
         filterPanel.add(filterGenderBtn);
         filterPanel.add(filterAdoptedBtn);
         filterPanel.add(filterBreedBtn);
         filterPanel.add(sortAgeBtn);
+        filterPanel.add(sortIdBtn);
         filterPanel.add(removeFiltersBtn);
         add(filterPanel, BorderLayout.SOUTH);
 
+        // Add Pet
         addBtn.addActionListener(e -> {
             JTextField id = new JTextField();
             JTextField name = new JTextField();
@@ -78,39 +81,36 @@ public class AdminPanel extends JPanel {
             JComboBox<String> gender = new JComboBox<>(new String[]{"Male", "Female"});
 
             JPanel panel = new JPanel(new GridLayout(5, 2));
-            panel.add(new JLabel("ID:"));
-            panel.add(id);
-            panel.add(new JLabel("Name:"));
-            panel.add(name);
-            panel.add(new JLabel("Breed:"));
-            panel.add(breed);
-            panel.add(new JLabel("Gender:"));
-            panel.add(gender);
-            panel.add(new JLabel("Age:"));
-            panel.add(age);
+            panel.add(new JLabel("ID:")); panel.add(id);
+            panel.add(new JLabel("Name:")); panel.add(name);
+            panel.add(new JLabel("Breed:")); panel.add(breed);
+            panel.add(new JLabel("Gender:")); panel.add(gender);
+            panel.add(new JLabel("Age:")); panel.add(age);
 
             if (JOptionPane.showConfirmDialog(this, panel, "Add Pet", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
                 Pet newPet = new Pet(id.getText(), name.getText(), breed.getText(),
                         Integer.parseInt(age.getText()), (String) gender.getSelectedItem());
-                admin.addPet(newPet);
+                PetStorage.addAnimal(newPet);
+                admin.getPets().add(newPet);
                 refreshTable(model, admin.getPets());
             }
         });
 
+        // Remove Pet
         removeBtn.addActionListener(e -> {
             String id = JOptionPane.showInputDialog("Enter Pet ID to remove:");
             if (id != null && !id.isEmpty()) {
                 admin.removePet(id);
+                PetStorage.saveAnimals(admin.getPets());
                 refreshTable(model, admin.getPets());
             }
         });
 
+        // Edit Pet
         editBtn.addActionListener(e -> {
             String id = JOptionPane.showInputDialog("Enter Pet ID to edit:");
             if (id != null && !id.isEmpty()) {
-                Pet petToEdit = animals.stream()
-                        .filter(p -> p.getId().equals(id))
-                        .findFirst().orElse(null);
+                Pet petToEdit = animals.stream().filter(p -> p.getId().equals(id)).findFirst().orElse(null);
                 if (petToEdit == null) {
                     JOptionPane.showMessageDialog(this, "No pet found with ID: " + id);
                     return;
@@ -135,8 +135,8 @@ public class AdminPanel extends JPanel {
                     }
                     case "Gender" -> {
                         String[] genders = {"Male", "Female"};
-                        String newGender = (String) JOptionPane.showInputDialog(this,
-                                "Select new gender:", "Gender", JOptionPane.PLAIN_MESSAGE, null, genders, genders[0]);
+                        String newGender = (String) JOptionPane.showInputDialog(this, "Select new gender:",
+                                "Gender", JOptionPane.PLAIN_MESSAGE, null, genders, genders[0]);
                         if (newGender != null) updated.setGender(newGender);
                     }
                     case "Age" -> {
@@ -158,14 +158,10 @@ public class AdminPanel extends JPanel {
                         genderBox.setSelectedItem(petToEdit.getGender());
 
                         JPanel editAllPanel = new JPanel(new GridLayout(4, 2));
-                        editAllPanel.add(new JLabel("Name:"));
-                        editAllPanel.add(nameField);
-                        editAllPanel.add(new JLabel("Breed:"));
-                        editAllPanel.add(breedField);
-                        editAllPanel.add(new JLabel("Gender:"));
-                        editAllPanel.add(genderBox);
-                        editAllPanel.add(new JLabel("Age:"));
-                        editAllPanel.add(ageField);
+                        editAllPanel.add(new JLabel("Name:")); editAllPanel.add(nameField);
+                        editAllPanel.add(new JLabel("Breed:")); editAllPanel.add(breedField);
+                        editAllPanel.add(new JLabel("Gender:")); editAllPanel.add(genderBox);
+                        editAllPanel.add(new JLabel("Age:")); editAllPanel.add(ageField);
 
                         int result = JOptionPane.showConfirmDialog(this, editAllPanel, "Edit Pet Details", JOptionPane.OK_CANCEL_OPTION);
                         if (result == JOptionPane.OK_OPTION) {
@@ -183,41 +179,36 @@ public class AdminPanel extends JPanel {
                 }
 
                 admin.editPet(id, updated);
+                PetStorage.saveAnimals(admin.getPets());
                 refreshTable(model, admin.getPets());
             }
         });
 
+        // Manage Requests
         manageRequestsBtn.addActionListener(e -> {
             JDialog requestDialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), "Manage Adoption Requests", true);
             requestDialog.setSize(600, 400);
             requestDialog.setLocationRelativeTo(this);
-        
-            String[] reqCols = { "Customer ID", "Pet ID", "Status" };
+
+            String[] reqCols = {"Customer ID", "Pet ID", "Status"};
             DefaultTableModel reqModel = new DefaultTableModel(reqCols, 0);
             JTable reqTable = new JTable(reqModel);
             JScrollPane reqScroll = new JScrollPane(reqTable);
-        
+
             Runnable refreshRequests = () -> {
                 reqModel.setRowCount(0);
                 for (AdoptionRequest r : requests) {
-                    reqModel.addRow(new Object[]{
-                            r.getCustomerId(), r.getAnimalID(),
-                            r.getStatus()
-                    });
+                    reqModel.addRow(new Object[]{r.getCustomerId(), r.getAnimalID(), r.getStatus()});
                 }
             };
             refreshRequests.run();
-        
+
             JButton approveBtn = new JButton("Approve");
             JButton denyBtn = new JButton("Deny");
-            JButton viewCustomerBtn = new JButton("View Customer Details");
-            JButton closeBtn = new JButton("Close");  // Close button
-            JPanel actionPanel = new JPanel();
-            actionPanel.add(approveBtn);
-            actionPanel.add(denyBtn);
-            actionPanel.add(viewCustomerBtn);
-            actionPanel.add(closeBtn); // Add close button
-        
+            JButton viewCustomerBtn = new JButton("View Request Details");
+            JButton removerequestBtn = new JButton("Remove");
+            JButton closeBtn = new JButton("Close");
+
             approveBtn.addActionListener(evt -> {
                 int row = reqTable.getSelectedRow();
                 if (row != -1) {
@@ -225,12 +216,13 @@ public class AdminPanel extends JPanel {
                     AdoptionRequest r = findRequestByCustomerId(requests, id);
                     if (r != null) {
                         r.setStatus("Approved");
+                        AdoptionRequestStorage.saveRequests(requests); 
                         refreshRequests.run();
                         JOptionPane.showMessageDialog(this, "Request Approved!");
                     }
                 }
             });
-        
+
             denyBtn.addActionListener(evt -> {
                 int row = reqTable.getSelectedRow();
                 if (row != -1) {
@@ -238,81 +230,114 @@ public class AdminPanel extends JPanel {
                     AdoptionRequest r = findRequestByCustomerId(requests, id);
                     if (r != null) {
                         r.setStatus("Denied");
+                        AdoptionRequestStorage.saveRequests(requests); 
                         refreshRequests.run();
                         JOptionPane.showMessageDialog(this, "Request Denied!");
                     }
                 }
             });
-        
+
             viewCustomerBtn.addActionListener(evt -> {
                 int row = reqTable.getSelectedRow();
                 if (row != -1) {
                     String customerId = (String) reqTable.getValueAt(row, 0);
+                    String petId = (String) reqTable.getValueAt(row, 1);
                     Customer customer = findCustomerById(customers, customerId);
+                    Pet pet = animals.stream().filter(p -> p.getId().equals(petId)).findFirst().orElse(null);
+
                     if (customer != null) {
-                        // Create a new dialog to show customer details
-                        JDialog customerDialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), "Customer Details", true);
-                        customerDialog.setSize(300, 200);
+                        JDialog customerDialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), "Customer & Pet Details", true);
+                        customerDialog.setSize(350, 300);
                         customerDialog.setLocationRelativeTo(this);
-        
-                        JPanel customerPanel = new JPanel(new GridLayout(0, 2));
-                        customerPanel.add(new JLabel("Customer ID:"));
-                        customerPanel.add(new JLabel(customer.getCustomerId()));
-                        customerPanel.add(new JLabel("Name:"));
-                        customerPanel.add(new JLabel(customer.getName()));
-                        customerPanel.add(new JLabel("Email:"));
-                        customerPanel.add(new JLabel(customer.getEmail()));
-                        customerPanel.add(new JLabel("Address:"));
-                        customerPanel.add(new JLabel(customer.getAddress()));
-                        customerPanel.add(new JLabel("Gender:"));
-                        customerPanel.add(new JLabel(customer.getGender()));
-                        customerPanel.add(new JLabel("Phone:"));
-                        customerPanel.add(new JLabel(customer.getPhone()));
-        
-                        // Add close button to the customer dialog
-                        JButton closeCustomerDialogBtn = new JButton("Close");
-                        closeCustomerDialogBtn.addActionListener(evt2 -> customerDialog.dispose());
+
+                        JPanel infoPanel = new JPanel(new GridLayout(0, 2, 5, 5));
+                        infoPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+                        infoPanel.add(new JLabel("Customer ID:")); infoPanel.add(new JLabel(customer.getCustomerId()));
+                        infoPanel.add(new JLabel("Name:")); infoPanel.add(new JLabel(customer.getName()));
+                        infoPanel.add(new JLabel("Email:")); infoPanel.add(new JLabel(customer.getEmail()));
+                        infoPanel.add(new JLabel("Address:")); infoPanel.add(new JLabel(customer.getAddress()));
+                        infoPanel.add(new JLabel("Gender:")); infoPanel.add(new JLabel(customer.getGender()));
+                        infoPanel.add(new JLabel("Phone:")); infoPanel.add(new JLabel(customer.getPhone()));
+                        infoPanel.add(new JLabel("")); infoPanel.add(new JLabel(""));
+
+                        if (pet != null) {
+                            infoPanel.add(new JLabel("Pet ID:")); infoPanel.add(new JLabel(pet.getId()));
+                            infoPanel.add(new JLabel("Name:")); infoPanel.add(new JLabel(pet.getName()));
+                            infoPanel.add(new JLabel("Breed:")); infoPanel.add(new JLabel(pet.getBreed()));
+                            infoPanel.add(new JLabel("Gender:")); infoPanel.add(new JLabel(pet.getGender()));
+                            infoPanel.add(new JLabel("Age:")); infoPanel.add(new JLabel(String.valueOf(pet.getAge())));
+                        }
+
+                        JButton customerCloseBtn = new JButton("Close");
+                        customerCloseBtn.addActionListener(e2 -> customerDialog.dispose());
                         JPanel closePanel = new JPanel();
-                        closePanel.add(closeCustomerDialogBtn);
-                        customerDialog.add(customerPanel, BorderLayout.CENTER);
+                        closePanel.add(customerCloseBtn);
+
+                        customerDialog.add(infoPanel, BorderLayout.CENTER);
                         customerDialog.add(closePanel, BorderLayout.SOUTH);
                         customerDialog.setVisible(true);
-                    } else {
-                        JOptionPane.showMessageDialog(this, "No customer found with ID: " + customerId);
                     }
                 }
             });
-        
-            closeBtn.addActionListener(evt -> requestDialog.dispose());  // Close the request dialog
-        
+
+            removerequestBtn.addActionListener(evt -> {
+                int row = reqTable.getSelectedRow();
+                if (row != -1) {
+                    String id = (String) reqTable.getValueAt(row, 0);
+                    AdoptionRequest r = findRequestByCustomerId(requests, id);
+                    if (r != null) {
+                        if (r.getStatus().equals("Pending")) {
+                            JOptionPane.showMessageDialog(this, "You must approve or deny the request before removing it.");
+                        } else {
+                            int confirm = JOptionPane.showConfirmDialog(this, 
+                                "Are you sure you want to delete this request?", 
+                                "Confirm Deletion", 
+                                JOptionPane.YES_NO_OPTION);
+                            if (confirm == JOptionPane.YES_OPTION) {
+                                requests.remove(r);
+                                AdoptionRequestStorage.saveRequests(requests);
+                                refreshRequests.run();
+                                JOptionPane.showMessageDialog(this, "Request removed.");
+                            }
+                        }
+                    }
+                }
+            });
+
+            closeBtn.addActionListener(evt -> requestDialog.dispose());
+
             JPanel bottomPanel = new JPanel();
             bottomPanel.add(approveBtn);
             bottomPanel.add(denyBtn);
             bottomPanel.add(viewCustomerBtn);
-            bottomPanel.add(closeBtn);  // Add close button
-        
+            bottomPanel.add(removerequestBtn);
+            bottomPanel.add(closeBtn);
+
             requestDialog.add(reqScroll, BorderLayout.CENTER);
             requestDialog.add(bottomPanel, BorderLayout.SOUTH);
-            requestDialog.setVisible(true);
-        
             requestDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            requestDialog.setVisible(true);
         });
-        
 
+        // Logout
         logoutBtn.addActionListener(e -> cardLayout.show(mainPanel, "Main Menu"));
 
+        // Sorting and Filtering
         sortAgeBtn.addActionListener(e -> {
             animals.sort((a, b) -> Integer.compare(a.getAge(), b.getAge()));
+            refreshTable(model, animals);
+        });
+
+        sortIdBtn.addActionListener(e -> {
+            animals.sort((a, b) -> a.getId().compareToIgnoreCase(b.getId()));
             refreshTable(model, animals);
         });
 
         filterBreedBtn.addActionListener(e -> {
             String breed = JOptionPane.showInputDialog("Enter Breed to filter by:");
             if (breed != null && !breed.isEmpty()) {
-                List<Pet> filtered = allPets.stream()
-                        .filter(p -> p.getBreed().equalsIgnoreCase(breed)).collect(Collectors.toList());
-                animals.clear();
-                animals.addAll(filtered);
+                List<Pet> filtered = allPets.stream().filter(p -> p.getBreed().equalsIgnoreCase(breed)).collect(Collectors.toList());
+                animals.clear(); animals.addAll(filtered);
                 refreshTable(model, animals);
             }
         });
@@ -320,10 +345,8 @@ public class AdminPanel extends JPanel {
         filterGenderBtn.addActionListener(e -> {
             String gender = JOptionPane.showInputDialog("Enter Gender to filter by (Male/Female):");
             if (gender != null && !gender.isEmpty()) {
-                List<Pet> filtered = allPets.stream()
-                        .filter(p -> p.getGender().equalsIgnoreCase(gender)).collect(Collectors.toList());
-                animals.clear();
-                animals.addAll(filtered);
+                List<Pet> filtered = allPets.stream().filter(p -> p.getGender().equalsIgnoreCase(gender)).collect(Collectors.toList());
+                animals.clear(); animals.addAll(filtered);
                 refreshTable(model, animals);
             }
         });
@@ -331,10 +354,8 @@ public class AdminPanel extends JPanel {
         filterAdoptedBtn.addActionListener(e -> {
             String input = JOptionPane.showInputDialog("Enter Adoption Status to filter by (Yes/No):");
             boolean adopted = input != null && input.equalsIgnoreCase("Yes");
-            List<Pet> filtered = allPets.stream()
-                    .filter(p -> p.getAdoptionStat() == adopted).collect(Collectors.toList());
-            animals.clear();
-            animals.addAll(filtered);
+            List<Pet> filtered = allPets.stream().filter(p -> p.getAdoptionStat() == adopted).collect(Collectors.toList());
+            animals.clear(); animals.addAll(filtered);
             refreshTable(model, animals);
         });
 
@@ -357,21 +378,15 @@ public class AdminPanel extends JPanel {
 
     private AdoptionRequest findRequestByCustomerId(List<AdoptionRequest> requests, String id) {
         for (AdoptionRequest r : requests) {
-            if (r.getCustomerId().equals(id)) {
-                return r;
-            }
+            if (r.getCustomerId().equals(id)) return r;
         }
         return null;
     }
 
     private Customer findCustomerById(List<Customer> customers, String customerId) {
         for (Customer c : customers) {
-            if (c.getCustomerId().equals(customerId)) {
-                return c;
-            }
+            if (c.getCustomerId().equals(customerId)) return c;
         }
         return null;
     }
-    
-
 }
