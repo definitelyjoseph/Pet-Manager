@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 /** Admin Class
- * @here we define the admin class which is responsible for managing the pets and customers.
+ * here we define the admin class which is responsible for managing the pets and customers.
  * It includes methods for adding, removing, and editing pets, as well as approving or denying adoption requests.
  */
 public class Admin {
@@ -12,7 +12,7 @@ public class Admin {
 /** Contructor for Admin class
  * @param username the username of the admin
  * @param password the password of the admin 
- * @here we initialize the admin class with the username and password, and load the pets from the storage.
+ * here we initialize the admin class with the username and password, and load the pets from the storage.
  */
     public Admin(String username, String password) {
         this.username = username;
@@ -21,34 +21,34 @@ public class Admin {
     }
     /** Getters for the Admin class */
     /** 
-     * @here we define the getUsername method which returns the username of the admin.
+     * here we define the getUsername method which returns the username of the admin.
      */
     public String getUsername() {
         return username;
     }
-    /**@here we define the getPassword method which returns the password of admin */
+    /**here we define the getPassword method which returns the password of admin */
 
     public String getPassword() {
         return password;
     }
 
-    /** @here we define the getPets method which returns the list of pets. */
+    /** here we define the getPets method which returns the list of pets. */
 
     public List<Pet> getPets() {
         return pets;
     }
-/** @here we define the savePetsToFile method which saves updated pets list to file. */
+/** here we define the savePetsToFile method which saves updated pets list to file. */
     public void savePetsToFile() {
         PetStorage.saveAnimals(pets);  // Save updated pets list to file
     }
-/** @here we define the addPet method which adds a new pet to the list of pets. */
+/** here we define the addPet method which adds a new pet to the list of pets. */
 
     public void addPet(Pet pet) {
         this.pets.add(pet);
         savePetsToFile();  // Save updated pets list to file
         JOptionPane.showMessageDialog(null, "Pet added successfully!");
     }
-/** @here we define the removePet method which removes a pet from the list of pets. */
+/** here we define the removePet method which removes a pet from the list of pets. */
 
     public void removePet(String petID) {
         for (int i = 0; i < pets.size(); i++) {
@@ -60,7 +60,7 @@ public class Admin {
         }
         System.out.println("Pet with ID " + petID + " not found.");
     }
-/** @here we define the editPet method which edits the details of a pet. */
+/** here we define the editPet method which edits the details of a pet. */
     public void editPet(String petID, Pet updatedPet) {
         for (int i = 0; i < pets.size(); i++) {
             if (pets.get(i).getId().equals(petID)) {
@@ -72,7 +72,7 @@ public class Admin {
         savePetsToFile();  // Save updated pets list to file
         JOptionPane.showMessageDialog(null, "Pet with ID " + petID + " not found.");
     }
-/** @here we define the updatePetDetails method which updates the details of a pet. 
+/** here we define the updatePetDetails method which updates the details of a pet. 
  * * @param petID the ID of the pet to be updated
  * @param name the new name of the pet
  * @param breed the new breed of the pet
@@ -92,7 +92,7 @@ public class Admin {
         }
         JOptionPane.showMessageDialog(null, "Pet with ID" +  petID + " not found.");
     }
-/** @here we define the listAvailablePets method which returns a list of available pets for adoption. */
+/** here we define the listAvailablePets method which returns a list of available pets for adoption. */
     public ArrayList<Pet> listAvailiblePets() {
         ArrayList<Pet> availablePets = new ArrayList<>();
         for (Pet pet : pets) {
@@ -101,7 +101,7 @@ public class Admin {
         }
         return availablePets;
     }
-/** @here we define the approveAdoption method which approves the adoption of a pet by a customer.
+/** here we define the approveAdoption method which approves the adoption of a pet by a customer.
  * @param customerID the ID of the customer who wants to adopt the pet
  * @param petID the ID of the pet to be adopted
  * @param requests the list of adoption requests
@@ -153,7 +153,7 @@ public class Admin {
         JOptionPane.showMessageDialog(null, "Customer with ID " + customerID + " not found.");
         return false;
     }
-    /** @here we define the denyAdoption method which denies the adoption of a pet by a customer.
+    /** here we define the denyAdoption method which denies the adoption of a pet by a customer.
      * @param customerID the ID of the customer who wants to adopt the pet
      * @param petID the ID of the pet to be adopted
      * @param requests the list of adoption requests

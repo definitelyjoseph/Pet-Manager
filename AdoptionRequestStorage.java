@@ -1,8 +1,8 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-/**@here we define the Adoption request Storage class which is responsible for handling the storage of adoption requests in a file.*/
-/**@here we define the constructor */
+/**here we define the Adoption request Storage class which is responsible for handling the storage of adoption requests in a file.*/
+/**here we define the constructor */
 public class AdoptionRequestStorage {
     private static final String FILE_NAME = "adoption_requests.dat";
 
