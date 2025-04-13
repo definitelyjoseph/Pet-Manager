@@ -224,8 +224,17 @@ public class AdminPanel extends JPanel {
                     AdoptionRequest r = findRequestByCustomerId(requests, id);
                     if (r != null) {
                         r.setStatus("Approved");
-                        AdoptionRequestStorage.saveRequests(requests); 
+                        
+                        // Find the pet corresponding to the adoption request and update its status
+                        Pet petToUpdate = animals.stream().filter(p -> p.getId().equals(r.getAnimalID())).findFirst().orElse(null);
+                        if (petToUpdate != null) {
+                            petToUpdate.setAdoptionStat(true); // Set adoption status to "Yes"
+                        }
+            
+                        AdoptionRequestStorage.saveRequests(requests);
+                        PetStorage.saveAnimals(animals); // Save the updated pets list with new adoption status
                         refreshRequests.run();
+                        refreshTable(model, animals); // Refresh both the request and pet tables
                         JOptionPane.showMessageDialog(this, "Request Approved!");
                     }
                 }
