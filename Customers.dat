@@ -1,4 +1,3 @@
-(String name, String gender, String address, String email, String phone, int birthYear, String password, String username)
 John Brown, Male, 123 CLose Street, johnbrown231@gmail.com, 8761234567, 2000, jBrown, John
 Jane Smith, Female, 456 Oak Avenue, janesmith456@gmail.com, 8762345678, 1995, jSmith95, Jane
 Noah Brooks, Male, 789 Ocean Lane, noahbrooks789@gmail.com, 8766549872, 2003, nBrooks03, Noah
