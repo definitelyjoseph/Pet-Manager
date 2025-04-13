@@ -76,7 +76,7 @@ public class PetManagerApp {
         ImageIcon logoIcon = new ImageIcon("C:\\Users\\amoya\\Downloads\\New folder (2)\\ChatGPT Image Apr 12, 2025, 12_51_25 AM.png");
     
         // Scale the image to fit the loading screen size
-        Image scaledImage = logoIcon.getImage().getScaledInstance(500, 400, Image.SCALE_SMOOTH);
+        Image scaledImage = logoIcon.getImage().getScaledInstance(900, 800, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
     
         // Create a JLabel to display the scaled image
@@ -84,7 +84,7 @@ public class PetManagerApp {
         loadingScreen.add(loadingLabel);
     
         // Set the size of the loading screen to 500x400
-        loadingScreen.setSize(500, 400);
+        loadingScreen.setSize(900, 800);
         loadingScreen.setLocationRelativeTo(null);
         loadingScreen.setVisible(true);
     
@@ -97,6 +97,14 @@ public class PetManagerApp {
     
         // Dispose of the loading screen after the delay
         loadingScreen.dispose();
+    }
+    
+
+    private void updateTable(DefaultTableModel model) {
+        model.setRowCount(0);  // Clear the table first
+        for (Pet pet : animals) {
+            model.addRow(new Object[]{pet.getId(), pet.getName(), pet.getBreed(), pet.getGender(), pet.getAge()});
+        }
     }
     
 
