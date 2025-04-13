@@ -1,0 +1,25 @@
+(String name, String gender, String address, String email, String phone, int birthYear, String password, String username)
+John Brown, Male, 123 CLose Street, johnbrown231@gmail.com, 8761234567, 2000, jBrown, John
+Jane Smith, Female, 456 Oak Avenue, janesmith456@gmail.com, 8762345678, 1995, jSmith95, Jane
+Noah Brooks, Male, 789 Ocean Lane, noahbrooks789@gmail.com, 8766549872, 2003, nBrooks03, Noah
+Paul Johnson, Male, 789 Pine Lane, pauljohnson789@gmail.com, 8763456789, 1998, pJohnson98, Paul
+Emily Davis, Female, 123 Elm Street, emilydavis123@gmail.com, 8764567890, 1992, eDavis92, Emily
+Michael Lee, Male, 654 Birch Road, michaellee654@gmail.com, 8765678901, 2001, mLee01, Michael
+Sarah Wilson, Female, 987 Cedar Court, sarahwilson987@gmail.com, 8766789012, 1988, sWilson88, Sarah
+David Clark, Male, 321 Maple Place, davidclark321@gmail.com, 8767890123, 1990, dClark90, David
+Laura Adams, Female, 789 Fir Drive, lauraadams789@gmail.com, 8768901234, 1993, lAdams93, Laura
+Andrew Cooper, Male, 456 Willow Way, andrewcooper456@gmail.com, 8769012345, 1997, aCooper97, Andrew
+Emma Baker, Female, 456 Sunset Avenue, emmabaker456@gmail.com, 8769876543, 2004, eBaker04, Emma
+Rachel Edwards, Female, 123 Aspen Terrace, racheledwards123@gmail.com, 8760123456, 1994, rEdwards94, Rachel
+Joshua Martin, Male, 987 Spruce Boulevard, joshuamartin987@gmail.com, 8761234560, 1985, jMartin85, Joshua
+Sophia Miller, Female, 654 Poplar Lane, sophiamiller654@gmail.com, 8762345670, 1989, sMiller89, Sophia
+Benjamin Harris, Male, 456 Holly Road, benjaminharris456@gmail.com, 8763456780, 2000, bHarris00, Benjamin
+Olivia Turner, Female, 321 Cypress Street, oliviaturner321@gmail.com, 8764567890, 1996, oTurner96, Olivia
+Daniel Walker, Male, 789 Walnut Place, danielwalker789@gmail.com, 8765678900, 1999, dWalker99, Daniel
+Grace Scott, Female, 123 Sycamore Avenue, gracescott123@gmail.com, 8766789010, 1991, gScott91, Grace
+Christopher Nelson, Male, 654 Palm Court, christophernelson654@gmail.com, 8767890120, 1997, cNelson97, Christopher
+Hannah Moore, Female, 987 Magnolia Way, hannahmoore987@gmail.com, 8768901230, 1987, hMoore87, Hannah
+Matthew Rogers, Male, 456 Cherry Boulevard, matthewrogers456@gmail.com, 8769012340, 1990, mRogers90, Matthew
+Elizabeth Howard, Female, 789 Redwood Drive, elizabethhoward789@gmail.com, 8760123450, 1993, eHoward93, Elizabeth
+Nathan Perez, Male, 321 Willow Terrace, nathanperez321@gmail.com, 8761234569, 1992, nPerez92, Nathan
+Liam Carter, Male, 123 Bamboo Drive, liamcarter123@gmail.com, 8763216548, 2005, lCarter05, Liam
