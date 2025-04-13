@@ -2,30 +2,30 @@ import java.io.Serializable;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+import javax.swing.*;
 
-public class Customer implements Serializable {
-    private String customerId, name, gender, address, email, phone, password, username;
-    private int birthYear;
-    private List<String> adoptedPets;
+
+    public class Customer implements Serializable {
+        private String customerId, name, gender, address, email, phone, password, username;
+        private int birthYear;
+        private List<String> adoptedPets;
+        private static final long serialVersionUID = 1L;  // Add this line
+
     
+        public Customer(String customerId, String name, String gender, String address, String email, String phone, int birthYear, String password, String username) {
+            this.customerId = customerId;
+            this.name = name;
+            this.gender = gender;
+            this.address = address;
+            this.email = email;
+            this.phone = phone;
+            this.birthYear = birthYear;
+            this.password = password;
+            this.username = username;
+            this.adoptedPets = new ArrayList<>();
+        }
 
-    public Customer(String name, String gender, String address, String email, String phone, int birthYear, String password, String username) {
-        this.customerId = generateCustomerId();
-        this.name = name;
-        this.gender = gender;
-        this.address = address;
-        this.email = email;
-        this.phone = phone;
-        this.birthYear = birthYear;
-        this.password = password;
-        this.username = username;
-        this.adoptedPets = new ArrayList<>();
-    }
-
-    private String generateCustomerId() {
-        return "CUST-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
-    }
+   
 
     public boolean isEligibleToAdopt() {
         int currentYear = Year.now().getValue();
@@ -33,37 +33,87 @@ public class Customer implements Serializable {
     }
 
     public AdoptionRequest requestAdoption(String animalID) {
-        if (isEligibleToAdopt()) {
-            return new AdoptionRequest(email, animalID);
-        } else {
-            System.out.println("You must be at least 21 years old to adopt a pet.");
+        if (!isEligibleToAdopt()) {
+            JOptionPane.showMessageDialog(null, "You must be at least 21 years old to adopt a pet.");
             return null;
         }
+    
+        if (animalID == null || animalID.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Invalid animal ID.");
+            return null;
+        }
+    
+        JOptionPane.showMessageDialog(null, "Pet adoption request submitted successfully!");
+        return new AdoptionRequest(customerId, animalID.trim());
     }
-
-    public void viewAdoptionStatus(List<AdoptionRequest> requests) {
+    
+    
+    
+    public boolean cancelAdoptionRequest(List<AdoptionRequest> requests, String animalId) {
+        if (animalId == null || animalId.trim().isEmpty()) {
+            return false;
+        }
+    
         for (AdoptionRequest req : requests) {
-            if (req.getCustomerEmail().equals(this.email)) {
-                System.out.println(req);
+            if (req.getAnimalID().equals(animalId.trim()) && req.getCustomerId().equals(this.customerId)) {
+                return true;
             }
         }
+    
+        return false;
     }
-
-    public void viewPets(List<Animal> animals) {
-        for (Animal animal : animals) {
-            System.out.println(animal);
+    
+    public void viewAdoptionStatus(List<AdoptionRequest> requests) {
+        boolean found = false;
+        StringBuilder statusMessage = new StringBuilder();
+        
+        for (AdoptionRequest req : requests) {
+            if (req.getCustomerId().equals(this.customerId)) {
+                if (!found) {
+                    statusMessage.append(req.toString());  // Add status message for the first matching request
+                    found = true;
+                }
+            }
+        }
+        
+        if (found) {
+            JOptionPane.showMessageDialog(null, statusMessage.toString());
+        } else {
+            JOptionPane.showMessageDialog(null, "No adoption status found for this customer.");
         }
     }
+    
+
+    public void viewPets(List<Pet> animals) {
+        StringBuilder sb = new StringBuilder("Available Pets:\n\n");
+        for (Pet animal : animals) {
+            sb.append(animal).append("\n");
+        }
+        showMessage(sb.toString(), "Available Pets");
+    }
+
+  
 
     public void viewAdoptedPets() {
+        StringBuilder sb = new StringBuilder("Adopted Pets for " + customerId + ":\n\n");
         if (adoptedPets.isEmpty()) {
-            System.out.println("No pets adopted yet.");
+            sb.append("No pets adopted yet.");
         } else {
             for (String petId : adoptedPets) {
-                System.out.println("Adopted Pet ID: " + petId);
+                sb.append("Adopted Pet ID: ").append(petId).append("\n");
             }
         }
+        showMessage(sb.toString(), "Adopted Pets");
     }
+
+    private void showMessage(String message, String title) {
+        JTextArea textArea = new JTextArea(message);
+        textArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setPreferredSize(new java.awt.Dimension(400, 300));
+        JOptionPane.showMessageDialog(null, scrollPane, title, JOptionPane.INFORMATION_MESSAGE);
+    }
+
 
     public void addAdoptedPet(String animalID) {
         adoptedPets.add(animalID);

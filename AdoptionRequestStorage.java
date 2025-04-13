@@ -13,12 +13,31 @@ public class AdoptionRequestStorage {
         }
     }
 
-    public static List<AdoptionRequest> loadRequests() {
+    @SuppressWarnings("unchecked")
+    public static ArrayList<AdoptionRequest> loadRequests() {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(FILE_NAME))) {
-            return (List<AdoptionRequest>) in.readObject();
+            return (ArrayList<AdoptionRequest>) in.readObject(); // Returns List<AdoptionRequest>
         } catch (IOException | ClassNotFoundException e) {
-            return new ArrayList<>();
+            return new ArrayList<>(); // If loading fails, return an empty list
         }
+    }
+
+    public static void addRequest(AdoptionRequest request) {
+        ArrayList<AdoptionRequest> requests = loadRequests();
+        requests.add(request);
+        saveRequests(requests);
+    }
+
+   
+    public static List<AdoptionRequest> getRequestsByCustomerId(String customerId) {
+        ArrayList<AdoptionRequest> requests = loadRequests();
+        List<AdoptionRequest> customerRequests = new ArrayList<>();
+        for (AdoptionRequest request : requests) {
+            if (request.getCustomerId().equals(customerId)) {
+                customerRequests.add(request);
+            }
+        }
+        return customerRequests;
     }
 }
  

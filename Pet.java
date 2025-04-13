@@ -1,12 +1,17 @@
-public class Pets {
+import java.io.Serializable;
+
+
+public class Pet implements Serializable {
     private String aniD;
     private String name;
     private String breed;
     private int age;
     private String gender; 
     private boolean adopted;
+    private static final long serialVersionUID = 1L;  // Add this line
 
-    public Pets(String aniD, String name, String breed, int age, String gender) {
+
+    public Pet(String aniD, String name, String breed, int age, String gender) {
         this.aniD = aniD;
         this.name = name;
         this.breed = breed;
