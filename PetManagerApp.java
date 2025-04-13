@@ -127,7 +127,7 @@ public class PetManagerApp {
             pets.add(new Pet("D_004", "Buddy", "Golden Retriever", 3, "Male"));
             pets.add(new Pet("B_005", "Sunny", "Canary", 1, "Male"));
             pets.add(new Pet("F_002", "Bubbles", "Betta", 1, "Female"));
-            pets.add(new Pet("H_002", "Nibbles", "Guinea Pig", 2, "Female"));
+            pets.add(new Pet("G_002", "Nibbles", "Guinea Pig", 2, "Female"));
             pets.add(new Pet("D_005", "Shadow", "German Shepherd", 4, "Male"));
             pets.add(new Pet("C_003", "Snowball", "Maine Coon", 3, "Female"));
             pets.add(new Pet("B_006", "Chirpy", "Lovebird", 2, "Male"));
