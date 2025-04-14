@@ -3,7 +3,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 import java.util.stream.Collectors;
-/**here we define the AdminPanel class which reponsible for displaying pannel screens for admin Dashboard  */
+/**
+ * here we define the AdminPanel class which reponsible for displaying pannel screens for admin Dashboard  */
 public class AdminPanel extends JPanel {
     private CardLayout cardLayout;
     private JPanel mainPanel;
@@ -12,7 +13,8 @@ public class AdminPanel extends JPanel {
     private List<Customer> customers;
     private Admin admin;
     private List<Pet> allPets;
-    /**here we define the constructor for AdminPanel class which is responsible for displaying pannel screens for admin Dashboard 
+    /**
+     * here we define the constructor for AdminPanel class which is responsible for displaying pannel screens for admin Dashboard 
      * @param cardLayout the CardLayout for switching between panels
      * @param mainPanel the main panel that contains all other panels
      * @param animals the list of pets

@@ -3,9 +3,31 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-
+/**
+ * The {@code LoginPanel} class represents the graphical user interface (GUI) for the login screen
+ * in the pet adoption system. It allows users to log in as either an admin or a customer.
+ * 
+ * <p>This class extends {@code JPanel} and uses Swing components to create an interactive login interface.</p>
+ * 
+ * <p>Key functionalities include:</p>
+ * <ul>
+ *   <li>Accepting username and password input</li>
+ *   <li>Validating login credentials for both admin and customers</li>
+ *   <li>Navigating to the appropriate dashboard based on the user type</li>
+ *   <li>Providing a password visibility toggle feature</li>
+ * </ul>
+ */
 public class LoginPanel extends JPanel {
 
+    /**
+     * Constructs a new {@code LoginPanel} with the specified layout, parent panel, and data lists.
+     *
+     * @param layout the {@code CardLayout} used for navigating between panels
+     * @param parent the parent {@code JPanel} containing this panel
+     * @param customers the list of registered customers
+     * @param animals the list of available pets
+     * @param requests the list of adoption requests
+     */
     public LoginPanel(CardLayout layout, JPanel parent, List<Customer> customers, List<Pet> animals, List<AdoptionRequest> requests) {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -67,6 +89,12 @@ public class LoginPanel extends JPanel {
         backButton.addActionListener(e -> layout.show(parent, "Main Menu"));
     }
 
+    /**
+     * Creates a password field with a toggle button to show or hide the password.
+     *
+     * @param passwordField the {@code JPasswordField} to be wrapped with the toggle functionality
+     * @return a {@code JPanel} containing the password field and the toggle button
+     */
     private JPanel createPasswordFieldWithToggle(JPasswordField passwordField) {
         JButton toggleButton = new JButton("Show");
         toggleButton.setPreferredSize(new Dimension(70, 30));

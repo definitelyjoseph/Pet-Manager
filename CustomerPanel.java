@@ -7,7 +7,32 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * The {@code CustomerPanel} class represents the graphical user interface (GUI) for the customer dashboard
+ * in the pet adoption system. It allows customers to view available pets, request adoptions, cancel adoption requests,
+ * view adoption statuses, and sort/filter pets based on specific criteria.
+ * 
+ * <p>This class extends {@code JPanel} and uses Swing components to create an interactive interface.</p>
+ * 
+ * <p>Key functionalities include:</p>
+ * <ul>
+ *   <li>Displaying a table of available pets</li>
+ *   <li>Submitting and canceling adoption requests</li>
+ *   <li>Sorting and filtering pets by age, breed, or gender</li>
+ *   <li>Viewing adopted pets and adoption statuses</li>
+ * </ul>
+ */
 public class CustomerPanel extends JPanel {
+
+    /**
+     * Constructs a new {@code CustomerPanel} with the specified layout, parent panel, customer, list of pets, and adoption requests.
+     *
+     * @param layout the {@code CardLayout} used for navigating between panels
+     * @param parent the parent {@code JPanel} containing this panel
+     * @param customer the {@code Customer} object representing the logged-in customer
+     * @param animals the list of available pets
+     * @param requests the list of adoption requests
+     */
     public CustomerPanel(CardLayout layout, JPanel parent, Customer customer, List<Pet> animals, List<AdoptionRequest> requests) {
 
         setLayout(new BorderLayout());
@@ -145,6 +170,13 @@ public class CustomerPanel extends JPanel {
         });
     }
 
+    /**
+     * Finds a pet by its ID from the given list of pets.
+     *
+     * @param animals the list of pets to search
+     * @param id the ID of the pet to find
+     * @return the {@code Pet} object with the specified ID, or {@code null} if no match is found
+     */
     private Pet findPetById(List<Pet> animals, String id) {
         for (Pet pet : animals) {
             if (pet.getId().equalsIgnoreCase(id)) {
@@ -154,6 +186,13 @@ public class CustomerPanel extends JPanel {
         return null;
     }
 
+    /**
+     * Filters the list of pets by breed.
+     *
+     * @param animals the list of pets to filter
+     * @param breed the breed to filter by
+     * @return a list of pets that match the specified breed
+     */
     private List<Pet> filterPetsByBreed(List<Pet> animals, String breed) {
         if (breed == null || breed.isEmpty()) return animals;
         List<Pet> filteredPets = new ArrayList<>();
@@ -165,6 +204,13 @@ public class CustomerPanel extends JPanel {
         return filteredPets;
     }
 
+    /**
+     * Filters the list of pets by gender.
+     *
+     * @param animals the list of pets to filter
+     * @param gender the gender to filter by (e.g., "Male" or "Female")
+     * @return a list of pets that match the specified gender
+     */
     private List<Pet> filterPetsByGender(List<Pet> animals, String gender) {
         if (gender == null || gender.isEmpty()) return animals;
         List<Pet> filteredPets = new ArrayList<>();
@@ -176,6 +222,12 @@ public class CustomerPanel extends JPanel {
         return filteredPets;
     }
 
+    /**
+     * Refreshes the table to display the given list of pets.
+     *
+     * @param pets the list of pets to display
+     * @param model the {@code DefaultTableModel} used by the table
+     */
     private void refreshTableWithFilteredPets(List<Pet> pets, DefaultTableModel model) {
         model.setRowCount(0);
         for (Pet pet : pets) {
