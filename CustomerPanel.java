@@ -129,8 +129,6 @@ public class CustomerPanel extends JPanel {
         
             if (selectedPet == null) {
                 JOptionPane.showMessageDialog(this, "No pet found with that ID.");
-            } else if (!selectedPet.getAdoptionStat()) {
-                JOptionPane.showMessageDialog(this, "This pet is not adopted.");
             } else {
                 boolean success = customer.cancelAdoptionRequest(requests, animalId.trim());
                 if (success) {

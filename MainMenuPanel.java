@@ -33,7 +33,7 @@ public class MainMenuPanel extends JPanel {
         setLayout(new BorderLayout());
 
         // Load and scale the logo image
-        ImageIcon logoIcon = new ImageIcon("C:\\Users\\amoya\\Downloads\\New folder (2)\\ChatGPT Image Apr 12, 2025, 12_51_25 AM.png");
+        ImageIcon logoIcon = new ImageIcon("Pet_Manager_App_Logo.png");
         Image scaledImage = logoIcon.getImage().getScaledInstance(500, 500, Image.SCALE_SMOOTH); // Resize logo
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
         

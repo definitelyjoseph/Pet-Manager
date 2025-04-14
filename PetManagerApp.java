@@ -90,7 +90,7 @@ public class PetManagerApp {
         JWindow loadingScreen = new JWindow();
     
         // Load the image
-        ImageIcon logoIcon = new ImageIcon("image/logo.png");
+        ImageIcon logoIcon = new ImageIcon("Pet_Manager_App_Logo.png");
     
         // Scale the image to fit the loading screen size
         Image scaledImage = logoIcon.getImage().getScaledInstance(900, 800, Image.SCALE_SMOOTH);
