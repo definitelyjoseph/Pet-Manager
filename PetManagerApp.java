@@ -90,7 +90,7 @@ public class PetManagerApp {
         JWindow loadingScreen = new JWindow();
     
         // Load the image
-        ImageIcon logoIcon = new ImageIcon("C:\\Users\\amoya\\Downloads\\New folder (2)\\ChatGPT Image Apr 12, 2025, 12_51_25 AM.png");
+        ImageIcon logoIcon = new ImageIcon("image/logo.png");
     
         // Scale the image to fit the loading screen size
         Image scaledImage = logoIcon.getImage().getScaledInstance(900, 800, Image.SCALE_SMOOTH);
