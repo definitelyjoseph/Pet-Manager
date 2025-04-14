@@ -3,7 +3,6 @@ import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
-
 /**
  * The {@code Customer} class represents a customer in the pet adoption system.
  * It stores customer details such as personal information, contact details, and adoption-related data.

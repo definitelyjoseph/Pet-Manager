@@ -1,6 +1,20 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The {@code MainMenuPanel} class represents the main menu screen in the pet adoption system.
+ * It provides a graphical user interface (GUI) for users to navigate to the login screen, sign-up screen,
+ * or exit the application.
+ * 
+ * <p>This class extends {@code JPanel} and uses Swing components to create an interactive interface.</p>
+ * 
+ * <p>Key functionalities include:</p>
+ * <ul>
+ *   <li>Displaying a welcome message and logo</li>
+ *   <li>Providing buttons for navigation (Login, Sign Up, Close)</li>
+ *   <li>Handling button actions to navigate between screens or exit the application</li>
+ * </ul>
+ */
 public class MainMenuPanel extends JPanel {
     private JButton loginButton;
     private JButton signUpButton;
@@ -8,6 +22,13 @@ public class MainMenuPanel extends JPanel {
     private JLabel logoLabel;
     private JLabel welcomeLabel;
 
+    /**
+     * Constructs a new {@code MainMenuPanel} with the specified layout and parent panel.
+     * Initializes the main menu interface with a logo, welcome message, and navigation buttons.
+     *
+     * @param layout the {@code CardLayout} used for navigating between panels
+     * @param parent the parent {@code JPanel} containing this panel
+     */
     public MainMenuPanel(CardLayout layout, JPanel parent) {
         setLayout(new BorderLayout());
 
@@ -60,6 +81,11 @@ public class MainMenuPanel extends JPanel {
         });
     }
 
+    /**
+     * Styles a button with a consistent appearance, including font, background color, and foreground color.
+     *
+     * @param button the {@code JButton} to be styled
+     */
     private void styleButton(JButton button) {
         button.setFocusPainted(false);
         button.setFont(new Font("Arial", Font.PLAIN, 30));

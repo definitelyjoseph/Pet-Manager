@@ -6,24 +6,37 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The {@code PetManagerApp} class serves as the main entry point for the pet adoption system application.
+ * It initializes the application, sets up the graphical user interface (GUI), and manages the navigation
+ * between different panels such as the main menu, login screen, admin dashboard, and customer dashboard.
+ * 
+ * <p>This class uses Swing components to create an interactive interface and handles the loading and saving
+ * of data for pets, customers, and adoption requests.</p>
+ * 
+ * <p>Key functionalities include:</p>
+ * <ul>
+ *   <li>Initializing the application and loading default data</li>
+ *   <li>Setting up the main GUI with a {@code CardLayout} for navigation</li>
+ *   <li>Displaying a loading screen during startup</li>
+ *   <li>Managing the display and updates of pet data in tables</li>
+ * </ul>
+ */
 public class PetManagerApp {
-
-    private void setButtonStyle(JButton button) {
-        button.setFocusPainted(false);
-        button.setFont(new Font("Arial", Font.PLAIN, 12));
-        button.setBackground(Color.LIGHT_GRAY);
-        button.setForeground(Color.BLACK);
-    }
 
     private static JFrame frame;
     private static JPanel mainPanel;
     private static CardLayout cardLayout;
 
-    private static List<Pet> animals = PetStorage.loadAnimals();  // Changed to ArrayList<Pet>
-    private static List<Customer> customers = CustomerStorage.loadCustomers();  
-    private static ArrayList<AdoptionRequest> requests = AdoptionRequestStorage.loadRequests();  
-    private static final Admin admin = new Admin("admin", "password");  // admin credentials
+    private static List<Pet> animals = PetStorage.loadAnimals();
+    private static List<Customer> customers = CustomerStorage.loadCustomers();
+    private static ArrayList<AdoptionRequest> requests = AdoptionRequestStorage.loadRequests();
+    private static final Admin admin = new Admin("admin", "password");
 
+    /**
+     * Constructs a new {@code PetManagerApp} and initializes the application.
+     * Sets up the main GUI, loads data, and displays the main menu.
+     */
     public PetManagerApp() {
         
         showLoadingScreen();
@@ -69,6 +82,10 @@ public class PetManagerApp {
         cardLayout.show(mainPanel, "Main Menu");
     }
 
+    /**
+     * Displays a loading screen with a logo during application startup.
+     * The loading screen is shown for 3 seconds before the main GUI is displayed.
+     */
     private void showLoadingScreen() {
         JWindow loadingScreen = new JWindow();
     
@@ -100,6 +117,12 @@ public class PetManagerApp {
     }
     
 
+    /**
+     * Updates the table model with the current list of pets.
+     * Clears the table and repopulates it with pet data.
+     *
+     * @param model the {@code DefaultTableModel} to be updated
+     */
     private void updateTable(DefaultTableModel model) {
         model.setRowCount(0);  // Clear the table first
         for (Pet pet : animals) {
@@ -108,13 +131,13 @@ public class PetManagerApp {
     }
     
 
-    private void updateTable(DefaultTableModel model) {
-        model.setRowCount(0);  // Clear the table first
-        for (Pet pet : animals) {
-            model.addRow(new Object[]{pet.getId(), pet.getName(), pet.getBreed(), pet.getGender(), pet.getAge()});
-        }
-    }
-
+    /**
+     * The main method serves as the entry point for the application.
+     * It initializes default data for pets and customers if no data exists,
+     * and then launches the application.
+     *
+     * @param args command-line arguments (not used)
+     */
     public static void main(String[] args) {
         File petFile = new File("Pets.dat");
         if (!petFile.exists() || PetStorage.loadAnimals().isEmpty()) {
@@ -186,4 +209,15 @@ public class PetManagerApp {
     new PetManagerApp();
 }
 
+    /**
+     * Styles a button with a consistent appearance, including font, background color, and foreground color.
+     *
+     * @param button the {@code JButton} to be styled
+     */
+    private void setButtonStyle(JButton button) {
+        button.setFocusPainted(false);
+        button.setFont(new Font("Arial", Font.PLAIN, 12));
+        button.setBackground(Color.LIGHT_GRAY);
+        button.setForeground(Color.BLACK);
+    }
 }
