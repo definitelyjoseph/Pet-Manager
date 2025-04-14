@@ -3,12 +3,37 @@ import java.awt.*;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * The {@code SignUpPanel} class represents the graphical user interface (GUI) for the sign-up screen
+ * in the pet adoption system. It allows new customers to register by providing their personal details.
+ * 
+ * <p>This class extends {@code JPanel} and uses Swing components to create an interactive interface.</p>
+ * 
+ * <p>Key functionalities include:</p>
+ * <ul>
+ *   <li>Displaying an auto-assigned customer ID</li>
+ *   <li>Collecting user input for personal details such as name, gender, address, email, etc.</li>
+ *   <li>Validating user input and creating a new customer account</li>
+ *   <li>Saving the new customer to the storage</li>
+ *   <li>Navigating back to the main menu</li>
+ * </ul>
+ */
 public class SignUpPanel extends JPanel {
+
     private CardLayout layout;
     private JPanel parent;
     private List<Customer> customers;
     private String autoAssignedId;
 
+    /**
+     * Constructs a new {@code SignUpPanel} with the specified layout, parent panel, customer list, and auto-assigned ID.
+     * Initializes the sign-up interface with input fields, buttons, and validation logic.
+     *
+     * @param layout the {@code CardLayout} used for navigating between panels
+     * @param parent the parent {@code JPanel} containing this panel
+     * @param customers the list of existing customers
+     * @param autoAssignedId the auto-assigned ID for the new customer
+     */
     public SignUpPanel(CardLayout layout, JPanel parent, List<Customer> customers, String autoAssignedId) {
         this.layout = layout;
         this.parent = parent;
@@ -86,6 +111,11 @@ public class SignUpPanel extends JPanel {
         backButton.addActionListener(e -> layout.show(parent, "Main Menu"));
     }
 
+    /**
+     * Creates a styled text field for user input.
+     *
+     * @return a {@code JTextField} with predefined styling
+     */
     private JTextField createField() {
         JTextField field = new JTextField(20);
         field.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -93,6 +123,14 @@ public class SignUpPanel extends JPanel {
         return field;
     }
 
+    /**
+     * Adds a row to the panel with a label and a text field.
+     *
+     * @param gbc the {@code GridBagConstraints} used for layout positioning
+     * @param y the row index
+     * @param label the label text for the field
+     * @param field the input field component
+     */
     private void addRow(GridBagConstraints gbc, int y, String label, JComponent field) {
         gbc.gridx = 0;
         gbc.gridy = y;
@@ -101,6 +139,15 @@ public class SignUpPanel extends JPanel {
         add(field, gbc);
     }
 
+    /**
+     * Adds a row to the panel with a label and a password field that includes a toggle button
+     * to show or hide the password.
+     *
+     * @param gbc the {@code GridBagConstraints} used for layout positioning
+     * @param y the row index
+     * @param label the label text for the password field
+     * @param passwordField the password field component
+     */
     private void addRowWithPasswordToggle(GridBagConstraints gbc, int y, String label, JPasswordField passwordField) {
         JButton toggleButton = new JButton("Show");
         toggleButton.setPreferredSize(new Dimension(70, 30));
@@ -125,6 +172,11 @@ public class SignUpPanel extends JPanel {
         add(panel, gbc);
     }
 
+    /**
+     * Styles a button with predefined font and size.
+     *
+     * @param button the {@code JButton} to be styled
+     */
     private void styleButton(JButton button) {
         button.setFont(new Font("Arial", Font.PLAIN, 14));
         button.setPreferredSize(new Dimension(100, 30));
